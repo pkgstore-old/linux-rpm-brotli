@@ -1,4 +1,4 @@
-%global release_prefix          101
+%global release_prefix          102
 
 Name:                           brotli
 Version:                        1.0.9
@@ -6,6 +6,8 @@ Release:                        %{release_prefix}%{?dist}
 Summary:                        Lossless compression algorithm
 License:                        MIT
 URL:                            https://github.com/google/brotli
+Vendor:                         Package Store <https://pkgstore.github.io>
+Packager:                       Kitsune Solar <kitsune.solar@gmail.com>
 
 Source0:                        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -82,9 +84,9 @@ This package installs the development files
 
 %prep
 %autosetup -p1
-# fix permissions for -debuginfo
-# rpmlint will complain if I create an extra %%files section for
-# -debuginfo for this so we'll put it here instead
+# Fix permissions for -debuginfo.
+# RPMLint will complain if I create an extra %%files section for
+# -debuginfo for this so we'll put it here instead.
 %{__chmod} 644 c/enc/*.[ch]
 %{__chmod} 644 c/include/brotli/*.h
 %{__chmod} 644 c/tools/brotli.c
@@ -107,7 +109,7 @@ This package installs the development files
 %endif
 %cmake_install
 
-# I couldn't find the option to not build the static libraries
+# I couldn't find the option to not build the static libraries.
 %{__rm} "%{buildroot}%{_libdir}/"*.a
 
 %py3_install
@@ -138,7 +140,7 @@ done
 
 
 # Note that there is no %%files section for the unversioned python module
-# if we are building for several python runtimes
+# if we are building for several python runtimes.
 %files -n python3-%{name}
 %license LICENSE
 %{python3_sitearch}/brotli.py
@@ -162,6 +164,9 @@ done
 
 
 %changelog
+* Fri Jun 18 2021 Package Store <kitsune.solar@gmail.com> - 1.0.9-102
+- UPD: Add "Vendor" & "Packager" fields.
+
 * Fri Jun 18 2021 Package Store <kitsune.solar@gmail.com> - 1.0.9-101
 - UPD: New build for latest changes.
 
