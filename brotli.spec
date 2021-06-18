@@ -1,4 +1,4 @@
-%global release_prefix          100
+%global release_prefix          101
 
 Name:                           brotli
 Version:                        1.0.9
@@ -162,6 +162,9 @@ done
 
 
 %changelog
+* Fri Jun 18 2021 Package Store <kitsune.solar@gmail.com> - 1.0.9-101
+- UPD: New build for latest changes.
+
 * Thu Jun 17 2021 Package Store <kitsune.solar@gmail.com> - 1.0.9-100
 - UPD: Move to GitHub.
 - UPD: License.
