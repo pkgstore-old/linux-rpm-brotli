@@ -218,10 +218,10 @@ done
 * Wed Nov 28 2018 Travis Kendrick <pouar@pouar.net> - 1.0.7-1
 - Update to 1.0.7
 
-* Wed Nov 28 2018 Travis Kendrick <pouar@pouar.net> - 1.0.5-2
+* Wed Nov 28 2018 Travis Kendrick pouar@pouar.net> - 1.0.5-2
 - remove Python 2 support https://fedoraproject.org/wiki/Changes/Mass_Python_2_Package_Removal
 
-* Fri Jul 13 2018 Travis Kendrick <pouar@pouar.net> - 1.0.5-1
+* Fri Jul 13 2018 Travis Kendrick pouar@pouar.net> - 1.0.5-1
 - update to 1.0.5
 
 * Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-4
@@ -230,7 +230,7 @@ done
 * Mon Jun 18 2018 Miro Hrončok <mhroncok@redhat.com> - 1.0.4-3
 - Rebuilt for Python 3.7
 
-* Wed Apr 18 2018 Travis Kendrick <pouar@pouar.net> - 1.0.4-2
+* Wed Apr 18 2018 Travis Kendrick pouar@pouar.net> - 1.0.4-2
 - update to 1.0.4
 
 * Sat Mar 03 2018 Travis Kendrick <pouar@pouar.net> - 1.0.3-1
