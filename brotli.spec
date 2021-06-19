@@ -9,7 +9,7 @@ URL:                            https://github.com/google/brotli
 Vendor:                         Package Store <https://pkgstore.github.io>
 Packager:                       Kitsune Solar <kitsune.solar@gmail.com>
 
-Source0:                        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:                        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 Patch0:                         09b0992b6acb7faa6fd3b23f9bc036ea117230fc.patch
 
