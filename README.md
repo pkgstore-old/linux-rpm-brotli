@@ -8,6 +8,7 @@
 
 ```
 $ dnf copr enable pkgstore/brotli
+$ dnf install -y brotli
 ```
 
 ### Open Build Service (OBS)
