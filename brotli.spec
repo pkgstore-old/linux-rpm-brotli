@@ -119,12 +119,7 @@ for i in *.3;do
   %{__install} -m644 "${i}" "%{buildroot}%{_mandir}/man3/${i}brotli"
 done
 
-%if 0%{?rhel} == 8
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-%else
 %ldconfig_scriptlets
-%endif
 
 
 %check
