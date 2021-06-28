@@ -97,7 +97,7 @@ This package installs the development files
 . /opt/rh/devtoolset-7/enable
 %endif
 %cmake \
-    -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
+  -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
   -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
 %cmake_build
 %py3_build
@@ -119,7 +119,12 @@ for i in *.3;do
   %{__install} -m644 "${i}" "%{buildroot}%{_mandir}/man3/${i}brotli"
 done
 
+%if 0%{?rhel} == 8
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
+%else
 %ldconfig_scriptlets
+%endif
 
 
 %check
