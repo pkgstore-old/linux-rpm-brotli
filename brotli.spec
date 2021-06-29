@@ -1,3 +1,8 @@
+%if 0%{?rhel} == 8
+%define python3_pkgversion      36
+%else
+%define python3_pkgversion      3
+%endif
 %global release_prefix          102
 
 Name:                           brotli
@@ -19,8 +24,8 @@ BuildRequires:                  devtoolset-7-toolchain, devtoolset-7-libatomic-d
 BuildRequires:                  gcc
 BuildRequires:                  gcc-c++
 BuildRequires:                  cmake
-BuildRequires:                  python3-devel
-BuildRequires:                  python3-setuptools
+BuildRequires:                  python%{python3_pkgversion}-devel
+BuildRequires:                  python%{python3_pkgversion}-setuptools
 
 Requires:                       lib%{name}%{?_isa} = %{version}-%{release}
 
@@ -49,11 +54,11 @@ It is similar in speed with deflate but offers more dense compression.
 # Package: python3-brotli
 # -------------------------------------------------------------------------------------------------------------------- #
 
-%package -n python3-%{name}
+%package -n python%{python3_pkgversion}-%{name}
 Summary:                        Lossless compression algorithm (python 3)
-%{?python_provide:%python_provide python3-%{name}}
+%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
 
-%description -n python3-%{name}
+%description -n python%{python3_pkgversion}-%{name}
 Brotli is a generic-purpose lossless compression algorithm that compresses
 data using a combination of a modern variant of the LZ77 algorithm, Huffman
 coding and 2nd order context modeling, with a compression ratio comparable
@@ -141,7 +146,7 @@ done
 
 # Note that there is no %%files section for the unversioned python module
 # if we are building for several python runtimes.
-%files -n python3-%{name}
+%files -n python%{python3_pkgversion}-%{name}
 %license LICENSE
 %{python3_sitearch}/brotli.py
 %{python3_sitearch}/_brotli.cpython-%{python3_version_nodots}*.so
