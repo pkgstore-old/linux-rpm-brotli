@@ -1,8 +1,3 @@
-%if 0%{?rhel} == 8
-%define python3_pkgversion      36
-%else
-%define python3_pkgversion      3
-%endif
 %global release_prefix          102
 
 Name:                           brotli
@@ -18,14 +13,11 @@ Source0:                        %{url}/archive/v%{version}.tar.gz#/%{name}-%{ver
 
 Patch0:                         09b0992b6acb7faa6fd3b23f9bc036ea117230fc.patch
 
-%if 0%{?rhel} == 7
-BuildRequires:                  devtoolset-7-toolchain, devtoolset-7-libatomic-devel
-%endif
 BuildRequires:                  gcc
 BuildRequires:                  gcc-c++
 BuildRequires:                  cmake
-BuildRequires:                  python%{python3_pkgversion}-devel
-BuildRequires:                  python%{python3_pkgversion}-setuptools
+BuildRequires:                  python3-devel
+BuildRequires:                  python3-setuptools
 
 Requires:                       lib%{name}%{?_isa} = %{version}-%{release}
 
@@ -54,11 +46,11 @@ It is similar in speed with deflate but offers more dense compression.
 # Package: python3-brotli
 # -------------------------------------------------------------------------------------------------------------------- #
 
-%package -n python%{python3_pkgversion}-%{name}
+%package -n python3-%{name}
 Summary:                        Lossless compression algorithm (python 3)
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
+%{?python_provide:%python_provide python3-%{name}}
 
-%description -n python%{python3_pkgversion}-%{name}
+%description -n python3-%{name}
 Brotli is a generic-purpose lossless compression algorithm that compresses
 data using a combination of a modern variant of the LZ77 algorithm, Huffman
 coding and 2nd order context modeling, with a compression ratio comparable
@@ -98,9 +90,6 @@ This package installs the development files
 
 
 %build
-%if 0%{?rhel} == 7
-. /opt/rh/devtoolset-7/enable
-%endif
 %{cmake} \
   -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
   -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
@@ -109,9 +98,6 @@ This package installs the development files
 
 
 %install
-%if 0%{?rhel} == 7
-. /opt/rh/devtoolset-7/enable
-%endif
 %{cmake_install}
 
 # I couldn't find the option to not build the static libraries.
@@ -128,9 +114,6 @@ done
 
 
 %check
-%if 0%{?rhel} == 7
-. /opt/rh/devtoolset-7/enable
-%endif
 %{ctest}
 
 %files
@@ -146,7 +129,7 @@ done
 
 # Note that there is no %%files section for the unversioned python module
 # if we are building for several python runtimes.
-%files -n python%{python3_pkgversion}-%{name}
+%files -n python3-%{name}
 %license LICENSE
 %{python3_sitearch}/brotli.py
 %{python3_sitearch}/_brotli.cpython-%{python3_version_nodots}*.so
