@@ -91,7 +91,7 @@ This package installs the development files
 
 %build
 %if 0%{?rhel} == 8
-%{mkdir_p} build
+%{__mkdir_p} build
 cd build
 %{cmake} .. \
   -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
