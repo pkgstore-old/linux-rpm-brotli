@@ -90,18 +90,38 @@ This package installs the development files
 
 
 %build
+%if 0%{?rhel} == 8
+%{mkdir_p} build
+cd build
+%{cmake} .. \
+  -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
+  -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
+%{make_build}
+cd ..
+%else
 %{cmake} \
   -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
   -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
 %{cmake_build}
+%endif
+
 %{py3_build}
 
 
 %install
+%if 0%{?rhel} == 8
+cd build
+%{make_install}
+%else
 %{cmake_install}
+%endif
 
 # I couldn't find the option to not build the static libraries.
 %{__rm} "%{buildroot}%{_libdir}/"*.a
+
+%if 0%{?rhel} == 8
+cd ..
+%endif
 
 %{py3_install}
 %{__install} -dm755 "%{buildroot}%{_mandir}/man3"
@@ -114,7 +134,13 @@ done
 
 
 %check
+%if 0%{?rhel} == 8
+cd build
+%{ctest} -V
+%else
 %{ctest}
+%endif
+
 
 %files
 %{_bindir}/brotli
