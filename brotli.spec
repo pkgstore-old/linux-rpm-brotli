@@ -11,7 +11,7 @@ Packager:                       Kitsune Solar <kitsune.solar@gmail.com>
 
 Source0:                        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-Patch0:                         09b0992b6acb7faa6fd3b23f9bc036ea117230fc.patch
+# Patch0:                       09b0992b6acb7faa6fd3b23f9bc036ea117230fc.patch
 
 %if 0%{?rhel} == 7
 BuildRequires:                  devtoolset-7-toolchain, devtoolset-7-libatomic-devel
@@ -83,7 +83,7 @@ This package installs the development files
 # -------------------------------------------------------------------------------------------------------------------- #
 
 %prep
-%autosetup -p1
+%autosetup
 # Fix permissions for -debuginfo.
 # RPMLint will complain if I create an extra %%files section for
 # -debuginfo for this so we'll put it here instead.
