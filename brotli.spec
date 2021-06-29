@@ -143,6 +143,7 @@ done
 cd build
 ctest -V
 cd ..
+%{__python3} setup.py test
 %else
 %ctest
 %endif
