@@ -115,8 +115,6 @@ for i in *.3;do
   %{__install} -m644 "${i}" "%{buildroot}%{_mandir}/man3/${i}brotli"
 done
 
-%{ldconfig_scriptlets}
-
 
 %check
 cd build
