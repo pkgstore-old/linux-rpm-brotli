@@ -116,6 +116,7 @@ cd build
 # I couldn't find the option to not build the static libraries.
 %{__rm} "%{buildroot}%{_libdir}/"*.a
 
+cd ..
 %{py3_install}
 %{__install} -dm755 "%{buildroot}%{_mandir}/man3"
 cd docs
