@@ -96,24 +96,24 @@ cd build
 %{cmake} .. \
   -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
   -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
-%{make_build}
+%make_build
 cd ..
 %else
-%{cmake} \
+%cmake \
   -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
   -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
-%{cmake_build}
+%cmake_build
 %endif
 
-%{py3_build}
+%py3_build
 
 
 %install
 %if 0%{?rhel} == 8
 cd build
-%{make_install}
+%make_install
 %else
-%{cmake_install}
+%cmake_install
 %endif
 
 # I couldn't find the option to not build the static libraries.
@@ -123,22 +123,22 @@ cd build
 cd ..
 %endif
 
-%{py3_install}
+%py3_install
 %{__install} -dm755 "%{buildroot}%{_mandir}/man3"
 cd docs
 for i in *.3;do
   %{__install} -m644 "${i}" "%{buildroot}%{_mandir}/man3/${i}brotli"
 done
 
-%{ldconfig_scriptlets}
+%ldconfig_scriptlets
 
 
 %check
 %if 0%{?rhel} == 8
 cd build
-%{ctest} -V
+ctest -V
 %else
-%{ctest}
+%ctest
 %endif
 
 
