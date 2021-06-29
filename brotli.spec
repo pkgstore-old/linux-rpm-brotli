@@ -112,16 +112,13 @@ cd ..
 %if 0%{?rhel} == 8
 cd build
 %{make_install}
+cd ..
 %else
 %cmake_install
 %endif
 
 # I couldn't find the option to not build the static libraries.
 %{__rm} "%{buildroot}%{_libdir}/"*.a
-
-%if 0%{?rhel} == 8
-cd ..
-%endif
 
 %py3_install
 %{__install} -dm755 "%{buildroot}%{_mandir}/man3"
@@ -130,23 +127,11 @@ for i in *.3;do
   %{__install} -m644 "${i}" "%{buildroot}%{_mandir}/man3/${i}brotli"
 done
 
-%if 0%{?rhel} == 8
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
-%else
 %ldconfig_scriptlets
-%endif
 
 
 %check
-%if 0%{?rhel} == 8
-cd build
-ctest -V
-cd ..
-%{__python3} setup.py test
-%else
 %ctest
-%endif
 
 
 %files
