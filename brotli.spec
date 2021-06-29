@@ -11,7 +11,7 @@ Packager:                       Kitsune Solar <kitsune.solar@gmail.com>
 
 Source0:                        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-# Patch0:                       09b0992b6acb7faa6fd3b23f9bc036ea117230fc.patch
+Patch0:                         09b0992b6acb7faa6fd3b23f9bc036ea117230fc.patch
 
 %if 0%{?rhel} == 7
 BuildRequires:                  devtoolset-7-toolchain, devtoolset-7-libatomic-devel
@@ -83,7 +83,7 @@ This package installs the development files
 # -------------------------------------------------------------------------------------------------------------------- #
 
 %prep
-%autosetup
+%autosetup -p1
 # Fix permissions for -debuginfo.
 # RPMLint will complain if I create an extra %%files section for
 # -debuginfo for this so we'll put it here instead.
@@ -96,10 +96,13 @@ This package installs the development files
 %if 0%{?rhel} == 7
 . /opt/rh/devtoolset-7/enable
 %endif
-%cmake \
+%{__mkdir_p} build
+cd build
+%cmake .. \
   -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
   -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
-%cmake_build
+%{make_build}
+cd ..
 %py3_build
 
 
@@ -107,7 +110,8 @@ This package installs the development files
 %if 0%{?rhel} == 7
 . /opt/rh/devtoolset-7/enable
 %endif
-%cmake_install
+cd build
+%{make_install}
 
 # I couldn't find the option to not build the static libraries.
 %{__rm} "%{buildroot}%{_libdir}/"*.a
@@ -126,7 +130,10 @@ done
 %if 0%{?rhel} == 7
 . /opt/rh/devtoolset-7/enable
 %endif
-%ctest
+cd build
+ctest -V
+cd ..
+%{__python3} setup.py test
 
 %files
 %{_bindir}/brotli
