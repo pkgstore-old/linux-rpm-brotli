@@ -94,7 +94,6 @@ This package installs the development files
   -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
   -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
 %cmake_build
-
 %py3_build
 
 
