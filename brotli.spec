@@ -90,32 +90,16 @@ This package installs the development files
 
 
 %build
-%if 0%{?rhel} == 8
-%{__mkdir_p} build
-cd build
-%cmake .. \
-  -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
-  -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
-%{make_build}
-cd ..
-%else
 %cmake \
   -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
   -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
 %cmake_build
-%endif
 
 %py3_build
 
 
 %install
-%if 0%{?rhel} == 8
-cd build
-%{make_install}
-cd ..
-%else
 %cmake_install
-%endif
 
 # I couldn't find the option to not build the static libraries.
 %{__rm} "%{buildroot}%{_libdir}/"*.a
