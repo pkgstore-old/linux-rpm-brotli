@@ -23,6 +23,13 @@ $ dnf install -y brotli
 $ dnf upgrade -y brotli
 ```
 
+## Remove
+
+```
+$ dnf erase -y brotli
+$ dnf copr remove pkgstore/brotli
+```
+
 ## How to Build
 
 1. Get source from [src.fedoraproject.org](https://src.fedoraproject.org/rpms/brotli).
