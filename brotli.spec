@@ -1,4 +1,4 @@
-%global release_prefix          102
+%global release_prefix          103
 
 Name:                           brotli
 Version:                        1.0.9
@@ -13,6 +13,9 @@ Source0:                        %{url}/archive/v%{version}.tar.gz#/%{name}-%{ver
 
 Patch0:                         09b0992b6acb7faa6fd3b23f9bc036ea117230fc.patch
 
+%if 0%{?rhel} == 7
+BuildRequires:                  devtoolset-7-toolchain, devtoolset-7-libatomic-devel
+%endif
 BuildRequires:                  gcc
 BuildRequires:                  gcc-c++
 BuildRequires:                  cmake
@@ -90,6 +93,9 @@ This package installs the development files
 
 
 %build
+%if 0%{?rhel} == 7
+. /opt/rh/devtoolset-7/enable
+%endif
 %cmake \
   -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
   -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
@@ -98,6 +104,9 @@ This package installs the development files
 
 
 %install
+%if 0%{?rhel} == 7
+. /opt/rh/devtoolset-7/enable
+%endif
 %cmake_install
 
 # I couldn't find the option to not build the static libraries.
@@ -114,6 +123,9 @@ done
 
 
 %check
+%if 0%{?rhel} == 7
+. /opt/rh/devtoolset-7/enable
+%endif
 %ctest
 
 
@@ -153,15 +165,14 @@ done
 
 
 %changelog
-* Fri Jun 18 2021 Package Store <kitsune.solar@gmail.com> - 1.0.9-102
-- UPD: Add "Vendor" & "Packager" fields.
+* Tue Mar 29 2022 Package Store <pkgstore@mail.ru> - 1.0.9-103
+- UPD: Rebuild by Package Store.
 
-* Fri Jun 18 2021 Package Store <kitsune.solar@gmail.com> - 1.0.9-101
-- UPD: New build for latest changes.
+* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
-* Thu Jun 17 2021 Package Store <kitsune.solar@gmail.com> - 1.0.9-100
-- UPD: Move to GitHub.
-- UPD: License.
+* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
 * Thu Jun 03 2021 Python Maint <python-maint@redhat.com> - 1.0.9-5
 - Rebuilt for Python 3.10
