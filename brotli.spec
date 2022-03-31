@@ -1,4 +1,4 @@
-%global release_prefix          103
+%global release_prefix          1000
 
 Name:                           brotli
 Version:                        1.0.9
@@ -6,10 +6,8 @@ Release:                        %{release_prefix}%{?dist}
 Summary:                        Lossless compression algorithm
 License:                        MIT
 URL:                            https://github.com/google/brotli
-Vendor:                         Package Store <https://pkgstore.github.io>
-Packager:                       Kitsune Solar <kitsune.solar@gmail.com>
 
-Source0:                        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:                        %{name}-%{version}.tar.xz
 
 Patch0:                         09b0992b6acb7faa6fd3b23f9bc036ea117230fc.patch
 
@@ -96,30 +94,30 @@ This package installs the development files
 %if 0%{?rhel} == 7
 . /opt/rh/devtoolset-7/enable
 %endif
-%cmake \
+%{cmake} \
   -DCMAKE_INSTALL_PREFIX="%{_prefix}" \
   -DCMAKE_INSTALL_LIBDIR="%{_libdir}"
-%cmake_build
-%py3_build
+%{cmake_build}
+%{py3_build}
 
 
 %install
 %if 0%{?rhel} == 7
 . /opt/rh/devtoolset-7/enable
 %endif
-%cmake_install
+%{cmake_install}
 
 # I couldn't find the option to not build the static libraries.
 %{__rm} "%{buildroot}%{_libdir}/"*.a
 
-%py3_install
+%{py3_install}
 %{__install} -dm755 "%{buildroot}%{_mandir}/man3"
 cd docs
 for i in *.3;do
   %{__install} -m644 "${i}" "%{buildroot}%{_mandir}/man3/${i}brotli"
 done
 
-%ldconfig_scriptlets
+%{ldconfig_scriptlets}
 
 
 %check
@@ -165,6 +163,10 @@ done
 
 
 %changelog
+* Thu Mar 31 2022 Package Store <pkgstore@mail.ru> - 1.0.9-1000
+- UPD: Rebuild by Package Store.
+- UPD: File "brotli.spec".
+
 * Tue Mar 29 2022 Package Store <pkgstore@mail.ru> - 1.0.9-103
 - UPD: Rebuild by Package Store.
 
@@ -202,28 +204,34 @@ done
 * Sat May 23 2020 Miro Hrončok <mhroncok@redhat.com> - 1.0.7-11
 - Rebuilt for Python 3.9
 
-* Fri Mar 13 2020 Package Store <kitsune.solar@gmail.com> - 1.0.7-104
-- UPD: master-0786c4.
+* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
-* Sun Jun 23 2019 Package Store <kitsune.solar@gmail.com> - 1.0.7-103
-- FIX: SPEC-file.
+* Sat Dec  7 2019 Peter Robinson <pbrobinson@fedoraproject.org> 1.0.7-9
+- Splil out the libs to a separate package
 
-* Sun Jun 23 2019 Package Store <kitsune.solar@gmail.com> - 1.0.7-102
-- FIX: SPEC-file.
+* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 1.0.7-8
+- Rebuilt for Python 3.8.0rc1 (#1748018)
 
-* Sun Jun 23 2019 Package Store <kitsune.solar@gmail.com> - 1.0.7-101
-- FIX: SPEC-file.
+* Sat Aug 17 2019 Miro Hrončok <mhroncok@redhat.com> - 1.0.7-7
+- Rebuilt for Python 3.8
 
-* Sun Jun 23 2019 Kitsune Solar <kitsune.solar@gmail.com> - 1.0.7-100
-- Remove last python2 bits.
-- EPEL compatibility.
-- Build with devtoolset-7 on EPEL7 to fix aarch64 builds.
-- Update from MARKETPLACE.
+* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
-* Sat Dec 15 2018 Kitsune Solar <kitsune.solar@gmail.com> - 1.0.7-2
-- Update from MARKETPLACE.
+* Sat Apr 20 2019 Orion Poplawski <orion@nwra.com> - 1.0.7-5
+- Build with devtoolset-7 on EPEL7 to fix aarch64 builds
 
-* Wed Nov 28 2018 Travis Kendrick <pouar@pouar.net> - 1.0.7-1
+* Thu Mar 28 2019 Carl George <carl@george.computer> - 1.0.7-4
+- EPEL compatibility
+
+* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Sun Dec 09 2018 Miro Hrončok <mhroncok@redhat.com> - 1.0.7-2
+- Remove last python2 bits
+
+* Wed Nov 28 2018 Travis Kendrick pouar@pouar.net> - 1.0.7-1
 - Update to 1.0.7
 
 * Wed Nov 28 2018 Travis Kendrick pouar@pouar.net> - 1.0.5-2
